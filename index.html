@@ -1,0 +1,156 @@
+<html>
+<!-- MDUI CSS -->
+<link crossorigin="anonymous"
+    integrity="sha512-SSF+OBDODWTSIqOivYBOyOKQ93PBDevipJEUEWtkUbTt4v34rmgPcCXcBMolxZIJcuobcdqmYJlonjUBEbOzNw=="
+    href="https://lib.baomitu.com/layui/2.7.6/css/layui.css" rel="stylesheet">
+<style>
+    #input_data {
+        width: 100%;
+        height: 200px;
+    }
+
+    #output_data {
+        width: 100%;
+        height: 200px;
+    }
+    .box{
+        margin-left: 10px;
+        margin-right: 200px;
+    }
+    .title_data{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        font-size: 20px;
+    }
+    .love_you{
+        width: 200px;
+        height: 200px;
+    }
+    .aoligei{
+        height: 500px;
+    }
+</style>
+<body class="box">
+    <div class="title_data">
+        祝我心爱的PandaChang开题顺利、论文顺利、事事顺利！！！
+        <img class="love_you" src="https://pic1.imgdb.cn/item/6354d07116f2c2beb1e7519d.png" alt="">
+    </div>
+<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">输入文字</label>
+    <div class="layui-input-block">
+        <textarea id="input_data" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+        <br>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-green"
+            onclick="removeAll()">去除空格和换行</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-blue"
+            onclick="removeEmptyChar()">去除空格</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-orange"
+            onclick="removeEnterChar()">去除换行</button>
+    </div>
+</div>
+
+<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">处理输出</label>
+    <div class="layui-input-block">
+        <textarea id="output_data" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+        <br>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="clear_data()">清除数据</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-red" onclick="copy_data()">复制数据</button>
+    </div>
+</div>
+<div class="title_data">
+    <img class="aoligei" src="https://pic1.imgdb.cn/item/6354d09316f2c2beb1e77cd9.png" alt="">
+</div>
+</body>
+
+<!-- MDUI JavaScript -->
+<script crossorigin="anonymous"
+    integrity="sha512-jVlfkkRyCyrICx3iFs80jgim5Vmg2xVjAdBRCw/E/ZukJPYpjXfTyyiB1Y1gRsBeAC8CJ+jYIk0teYL4qV85gA=="
+    src="https://lib.baomitu.com/layui/2.7.6/layui.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function removeAll() {
+        var text = $("#output_data").val();
+        if (text == "") {
+            text = $("#input_data").val();
+        }
+
+        text = text.replace(/\s*/g, "");
+
+        $("#output_data").val(text);
+        layer.msg('操作成功'); 
+    }
+
+    // 去除空格
+    function removeEmptyChar() {
+        var text = $("#output_data").val();
+        if (text == "") {
+            text = $("#input_data").val();
+        }
+        data = text.split("\n")
+        console.log(data)
+        console.log(text)
+
+        var final_text = ""
+        for (var i = 0; i < data.length; i++) {
+            final_text += data[i].replace(/\s*/g, "");
+            final_text += "\n";
+        }
+
+        $("#output_data").val(final_text);
+        layer.msg('操作成功'); 
+    }
+
+    // 去除换行
+    function removeEnterChar() {
+        var text = $("#output_data").val();
+        if (text == "") {
+            text = $("#input_data").val();
+        }
+
+        text = text.replace(/\s*/g, "");
+
+        $("#output_data").val(text);
+        layer.msg('操作成功'); 
+    }
+
+    function clear_data() {
+        console.log("daf");
+        $("#output_data").val("");
+        layer.msg('清除成功'); 
+    }
+
+    function copy_data() {
+        let transfer = document.createElement('input');
+        document.body.appendChild(transfer);
+        transfer.value = $("#output_data").val();  // 这里表示想要复制的内容
+        transfer.focus();
+        transfer.select();
+        if (document.execCommand('copy')) {
+            document.execCommand('copy');
+        }
+        transfer.blur();
+        console.log('复制成功');
+        document.body.removeChild(transfer);
+        layer.msg('复制成功'); 
+    }
+
+    function renum() {
+        var text = $("#input_data").val();
+        data = text.split("\n")
+        console.log(data)
+        console.log(text)
+
+        var final_text = ""
+        for (var i = 0; i < data.length; i++) {
+            final_text += "[" + (i + 1) + "]"
+            final_text += data[i]
+            final_text += "\n";
+        }
+        console.log(final_text)
+    }
+
+</script>
+
+</html>
